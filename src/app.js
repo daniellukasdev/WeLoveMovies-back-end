@@ -4,10 +4,23 @@ const app = express();
 const cors = require("cors");
 
 const moviesRouter = require("./movies/movies.router");
+//const theatersRouter = require("./theaters/theaters.router")
+const notFound = require("./errors/notFound");
+const errorHandler = require("./errors/errorHandler");
 
 app.use(cors());
 app.use(express.json());
 
+// ###################  Routes ###################
+
 app.use("/movies", moviesRouter);
+//app.use("/theaters", theatersRouter)
+
+// ###############  Error Handling ###############
+
+app.use(notFound);
+app.use(errorHandler);
+
+
 
 module.exports = app;
