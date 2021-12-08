@@ -1,7 +1,7 @@
 const knex = require("../db/connection");
 const mapProperties = require("../utils/map-properties");
 
-// #################  Mapped Properties Object  #################
+// #################  mappedProperties Object  #################
 
 const addCritic = mapProperties({
     critic_id: "critic.critic_id",
@@ -14,6 +14,7 @@ const addCritic = mapProperties({
 
 // ############  Table Builders for Specific Routes  ############
 
+// creates table that includes movies that are showing at theater
 function listMoviesByShowing() {
     return knex("movies as m")
     .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
@@ -22,6 +23,7 @@ function listMoviesByShowing() {
     .orderBy("m.movie_id");
 }
 
+// If movie is showing at theater it's added to table
 function theatersByMovie(movieId) {
     return knex("movies_theaters as mt")
     .join("theaters as t", "mt.theater_id", "t.theater_id")
@@ -29,6 +31,7 @@ function theatersByMovie(movieId) {
     .where({ "mt.movie_id": movieId });
 }
 
+// creates table of reviews for given movie
 function reviewsByMovie(movieId) {
     return knex("reviews as r")
         .join("critics as c", "r.critic_id", "c.critic_id")

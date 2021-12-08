@@ -4,6 +4,8 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 // ##################  Middleware  ##################
 
+// checks that a movie with given ID exists and stores it in res.locals
+// otherwise returns error 
 async function movieExists(req, res, next) {
     const { movieId } = req.params;
 
@@ -20,7 +22,7 @@ async function movieExists(req, res, next) {
 
 async function list(req, res) {
     const isShowing = req.query.is_showing;
-    
+    // gets list if is_showing exists in the query
     if (isShowing) {
         res.json({ data: await service.listMoviesByShowing() });
     } else {

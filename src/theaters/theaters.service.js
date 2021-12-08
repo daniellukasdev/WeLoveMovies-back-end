@@ -1,8 +1,9 @@
 const knex = require("../db/connection");
 const reduceProperties = require("../utils/reduce-properties");
 
-// #################  Mapped Properties Object  #################
+// #################  reduceProperties Object  #################
 
+// reformats table data
 const reduceMovies = reduceProperties("theater_id", {
     movie_id: ["movies", null, "movie_id"],
     title: ["movies", null, "title"],

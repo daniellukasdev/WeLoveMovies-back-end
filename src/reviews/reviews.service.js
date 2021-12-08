@@ -1,7 +1,9 @@
 const knex = require("../db/connection");
 const mapProperties = require("../utils/map-properties");
 
-// #################  Mapped Properties Object  #################
+// #################  mappedProperties Object  #################
+
+// reformats table data
 const addCritic = mapProperties({
     preferred_name: "critic.preferred_name",
     surname: "critic.surname",
@@ -24,6 +26,7 @@ function update(updatedReview) {
         .update(updatedReview)
 }
 
+// reformats updated table data using addCritic 
 function reformatReview(reviewId) {
     return knex("reviews as r")
         .join("critics as c", "r.critic_id", "c.critic_id")
@@ -36,7 +39,7 @@ function reformatReview(reviewId) {
 function destroy(reviewId) {
     return knex("reviews")
         .where({ review_id: reviewId })
-        .del();
+        .del(); 
 }
 
 module.exports = {

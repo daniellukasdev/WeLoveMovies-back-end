@@ -3,6 +3,8 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 
 // ##################  Middleware  ##################
 
+// checks that a review with given ID exists and stores it in res.locals
+// otherwise returns error
 async function reviewExists(req, res, next) {
     const { reviewId } = req.params;
 
